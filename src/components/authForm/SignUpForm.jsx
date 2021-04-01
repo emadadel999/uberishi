@@ -5,14 +5,26 @@ import * as yup from "yup";
 import Typography from "./Typography";
 import FormInput from "./FormInput";
 import Button from "./Button";
+import FormSelect from "./FormSelect";
 
 function SignUpForm({ className, onSignUp, serverError, loading }) {
+  const ddlValues = [
+    {
+      value: 1,
+      text: "Driver",
+    },
+    {
+      value: 2,
+      text: "Passenger",
+    },
+  ];
   return (
     <Formik
       initialValues={{
         name: "",
         email: "",
         password: "",
+        role: 0
       }}
       validationSchema={yup.object({
         name: yup
@@ -24,8 +36,13 @@ function SignUpForm({ className, onSignUp, serverError, loading }) {
           .string()
           .max(6, "must be 6 characters or less")
           .required("required"),
+        role: yup
+          .number()
+          .notOneOf([0], "please choose a role")
+          .required("required")
       })}
       onSubmit={(values) => {
+        values.role = +values.role;
         onSignUp(values);
       }}
     >
@@ -43,15 +60,32 @@ function SignUpForm({ className, onSignUp, serverError, loading }) {
             type="password"
             placeholder="Password"
           />
-
-          {serverError && <div className='form-error'>{serverError}</div>}
+          <FormSelect
+            id="role"
+            name="role"
+            values={ddlValues}
+            defaultChoiceText="Select role..."
+          />
+          {serverError && <div className="form-error">{serverError}</div>}
 
           {!loading ? (
-            <Button variant="secondary" type="submit" marginTop="1.17rem" disabled={!formik.isValid}>
+            <Button
+              variant="secondary"
+              type="submit"
+              marginTop="1.17rem"
+              disabled={!formik.isValid}
+            >
               Sign up
             </Button>
           ) : (
-            <Button variant="secondary" type="submit" marginTop="1.17rem" disabled={true}>Loading...</Button>
+            <Button
+              variant="secondary"
+              type="submit"
+              marginTop="1.17rem"
+              disabled={true}
+            >
+              Loading...
+            </Button>
           )}
         </Form>
       )}

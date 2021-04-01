@@ -5,13 +5,25 @@ import * as yup from "yup";
 import Typography from "./Typography";
 import FormInput from "./FormInput";
 import Button from "./Button";
+import FormSelect from "./FormSelect";
 
 function SignInForm({ className, onSignIn, serverError, loading }) {
+  const ddlValues = [
+    {
+      value: 1,
+      text: "Driver",
+    },
+    {
+      value: 2,
+      text: "Passenger",
+    },
+  ];
   return (
     <Formik
       initialValues={{
         email: "",
         password: "",
+        role: 0,
       }}
       validationSchema={yup.object({
         email: yup.string().email("invalid email address").required("required"),
@@ -19,10 +31,14 @@ function SignInForm({ className, onSignIn, serverError, loading }) {
           .string()
           .max(6, "must be 6 characters or less")
           .required("required"),
+        role: yup
+          .number()
+          .notOneOf([0], "please choose a role")
+          .required("required")
       })}
       onSubmit={(values) => {
-        if (values.email !== "" && values.password !== "")
-          onSignIn(values);
+        values.role = +values.role;
+        onSignIn(values);
       }}
     >
       {(formik) => (
@@ -38,6 +54,13 @@ function SignInForm({ className, onSignIn, serverError, loading }) {
             type="password"
             placeholder="Password"
           />
+          <FormSelect
+            id="role"
+            name="role"
+            values={ddlValues}
+            defaultChoiceText="Select role..."
+          />
+
           {serverError && <div className="form-error">{serverError}</div>}
 
           {!loading ? (

@@ -1,53 +1,53 @@
-// import Axios from "axios";
+import Axios from "axios";
 
-// import { BACKEND_SERVER } from "../../../shared/globals/ServerAddress";
+import { BACKEND_SERVER } from "../../../shared/globals/ServerAddress";
 import {
-  //fetchAuthFailed,
+  fetchAuthFailed,
   recieveAuthData,
-  //recieveUserData,
+  recieveUserData,
   requestAuthData,
 } from "./actions";
 
 export const fetchLoginRequest = (authData) => {
   return (dispatch) => {
     dispatch(requestAuthData());
-    setTimeout(() => {
-      dispatch(recieveAuthData(true));
-    }, 2000);
 
-    // return Axios.post(`${BACKEND_SERVER}/api/login`, {
-    //   username: authData.username,
-    //   password: authData.password,
-    // })
-    //   .then((res) => {
-    //     dispatch(recieveUserData(res.data.currentUser));
-    //     dispatch(recieveAuthData(res.data.isAuth));
-    //   })
-    //   .catch((err) => {
-    //     const error = err.response ? err.response.data.message : err.message;
-    //     dispatch(fetchAuthFailed(error));
-    //   });
+    return Axios.post(`${BACKEND_SERVER}/api/loginUser`, {
+      email: authData.email,
+      password: authData.password,
+      idRole: authData.role
+    })
+      .then((res) => {
+        // dispatch(recieveUserData(res.data.currentUser));
+        const response = res.data.responseCode;
+        if(response != 200) throw new Error(`error ${response}`);
+        dispatch(recieveAuthData(true));
+      })
+      .catch((err) => {
+        const error = err.response ? err.response.data.message : err.message;
+        dispatch(fetchAuthFailed(error));
+      });
   };
 };
 
 export const fetchRegisterRequest = (authData) => {
   return (dispatch) => {
     dispatch(requestAuthData());
-    setTimeout(() => {
-      dispatch(recieveAuthData(true));
-    }, 2000);
-    // return Axios.post(`${BACKEND_SERVER}/api/register`, {
-    //   username: authData.username,
-    //   email: authData.email,
-    //   password: authData.password,
-    // })
-    //   .then((res) => {
-    //     dispatch(recieveUserData(res.data.currentUser));
-    //     dispatch(recieveAuthData(res.data.isAuth));
-    //   })
-    //   .catch((err) => {
-    //     const error = err.response ? err.response.data.message : err.message;
-    //     dispatch(fetchAuthFailed(error));
-    //   });
+    return Axios.post(`${BACKEND_SERVER}/api/registerUser`, {
+      email: authData.email,
+      idRole: 1,
+      name: authData.name,
+      password: authData.password,
+    })
+      .then((res) => {
+        // dispatch(recieveUserData(res.data.currentUser));
+        const response = res.data.responseCode;
+        if(response != 200) throw new Error(`error ${response}`);
+        dispatch(recieveAuthData(true));
+      })
+      .catch((err) => {
+        const error = err.response ? err.response.data.message : err.message;
+        dispatch(fetchAuthFailed(error));
+      });
   };
 };
