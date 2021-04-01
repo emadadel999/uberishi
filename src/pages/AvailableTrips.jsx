@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Card, CardDeck } from "react-bootstrap";
 import styled from "styled-components";
+
+import trip from "../shared/images/trip.jpeg";
 
 const AvailableTrips = () => {
   const myTrips = [
@@ -28,29 +29,23 @@ const AvailableTrips = () => {
 
   return (
     <>
-      <div className="container" style={{paddingTop: "50px"}}>
-        <div className="row" style={{justifyContent: "space-evenly"}}>
+      <div className="container" style={{ paddingTop: "50px" }}>
+        <div className="row" style={{ justifyContent: "space-evenly" }}>
           {myTrips.map((t, index) => {
             return (
-              <div className="card mb-3 col-5">
+              <div className="card mb-3 col-5" key={index}>
                 <div className="row g-0">
-                  <div className="col-md-4">
-                    <img src="..." alt="..." />
-                  </div>
-                  <div className="col-md-8">
+                  <ImageContainer className="col-md-5">
+                    <Image src={trip} alt="Trip" />
+                  </ImageContainer>
+                  <div className="col-md-7">
                     <div className="card-body">
                       <h5 className="card-title">{t.name}</h5>
+                      <p className="card-text">{t.description}</p>
                       <p className="card-text">
-                        {t.description}
+                        <small className="text-muted">{t.cost}</small>
                       </p>
-                      <p className="card-text">
-                        <small className="text-muted">
-                          {t.cost}
-                        </small>
-                      </p>
-                      <button className="btn btn-primary" >
-                          Reserve Trip
-                      </button>
+                      <button className="btn btn-primary">Reserve Trip</button>
                     </div>
                   </div>
                 </div>
@@ -62,5 +57,18 @@ const AvailableTrips = () => {
     </>
   );
 };
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 0;
+`;
+
+const Image = styled.img`
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 200px;
+`;
 
 export default AvailableTrips;
