@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardDeck } from "react-bootstrap";
+import { Button, Card, CardDeck } from "react-bootstrap";
 import styled from "styled-components";
 
 const AvailableTrips = () => {
@@ -28,11 +28,11 @@ const AvailableTrips = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
+      <div className="container" style={{paddingTop: "50px"}}>
+        <div className="row" style={{justifyContent: "space-evenly"}}>
           {myTrips.map((t, index) => {
             return (
-              <div className="card mb-3 col-6">
+              <div className="card mb-3 col-5">
                 <div className="row g-0">
                   <div className="col-md-4">
                     <img src="..." alt="..." />
@@ -48,6 +48,9 @@ const AvailableTrips = () => {
                           {t.cost}
                         </small>
                       </p>
+                      <button className="btn btn-primary" >
+                          Reserve Trip
+                      </button>
                     </div>
                   </div>
                 </div>

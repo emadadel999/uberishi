@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
 const ReservedTrips = () => {
@@ -16,26 +17,32 @@ const ReservedTrips = () => {
   ];
 
   return (
-    <>
-      {myTrips.map((t, index) => {
-        return (
-          <Card key={t.name}>
-            <Inner>
-              <Image>image..</Image>
-              <Details>
-                <Title>{t.name}</Title>
-                <TripCost>{t.cost}</TripCost>
-                <TripDescription>{t.description}</TripDescription>
-              </Details>
-            </Inner>
-            <BtnContainer>
-              <EditBtn>Edit</EditBtn>
-              <DeleteBtn>Delete</DeleteBtn>
-            </BtnContainer>
-          </Card>
-        );
-      })}
-    </>
+    <div className="container" style={{ paddingTop: "50px" }}>
+      <div className="row" style={{ justifyContent: "space-evenly" }}>
+        {myTrips.map((t, index) => {
+          return (
+            <div className="card mb-3 col-5">
+              <div className="row g-0">
+                <div className="col-md-4">
+                  <img src="..." alt="..." />
+                </div>
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <h5 className="card-title">{t.name}</h5>
+                    <p className="card-text">{t.description}</p>
+                    <p className="card-text">
+                      <small className="text-muted">{t.cost}</small>
+                    </p>
+                    <button className="btn btn-primary" style={{marginRight: "10px"}}>Edit</button>
+                    <button className="btn btn-danger">Delete</button >
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -44,7 +51,6 @@ const Card = styled.div`
   margin-top: 20px;
   text-align: center;
   font-family: arial;
-
 `;
 
 const Inner = styled.div`
