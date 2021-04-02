@@ -26,6 +26,7 @@ const store = createStore(
 store.subscribe(() => {
   setAuthState({
     authReducer: store.getState().authReducer,
+    userReducer: store.getState().userReducer
   });
 });
 
