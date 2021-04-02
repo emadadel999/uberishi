@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Media} from 'react-bootstrap';
-import {createReservation,deleteReservation} from "../shared/redux/actions/actionReservation";
+//port {createReservation,deleteReservation} from "../shared/redux/actions/actionReservation";
 import { connect } from "react-redux";
 
 class passengerTrips extends React.Component {
@@ -24,11 +24,11 @@ handleClick(t, create){
     console.log(t);
     let passengerId=6;
     if(create=="true"){
-        this.props.dispatch(createReservation(t.id,passengerId));
+        //this.props.dispatch(createReservation(t.id,passengerId));
         console.log("create");
     }
     else{
-        this.props.dispatch(deleteReservation(3,1));
+        //this.props.dispatch(deleteReservation(3,1));
         console.log("edit");
     }
     

@@ -1,15 +1,25 @@
 import React from "react";
 import passengerTrips from "../components/passengerTrips";
-import {getListTrips} from "../shared/redux/actions/actionReservation";
+//import {getListTrips} from "../shared/redux/actions/actionReservation";
 import 'font-awesome/css/font-awesome.min.css';
 import { connect } from "react-redux";
-
+import {getTrips} from '../shared/api/trips';
 
  class ReservedTrips extends React.Component {
- 
+  constructor(props) {super(props);
+    this.state = {
+      trips: []
+    };
+  }
 
   componentWillMount () {
-  this.props.dispatch(getListTrips());
+    getTrips.getTrips().then(result => {
+      console.log(result);
+    this.setState({
+      trips: result})
+    });
+
+    console.log(this.state.trips);
 }
 
 render() {
