@@ -10,9 +10,11 @@ import Typography from "../components/authForm/Typography";
 import { useSelector } from "react-redux";
 
 import {createTrip} from '../shared/api/trips';
+import { useHistory } from "react-router";
 
 const CreateTrips = () => {
   const { currentUser } = useSelector((state) => state.userReducer);
+  let history = useHistory();
   const availabeLocations = [
     {
       value: 1,
@@ -48,9 +50,8 @@ const CreateTrips = () => {
         values.locationToId = +values.locationToId;
         values.numberOfSeats = +values.numberOfSeats;
         values.driverId = currentUser.id;
-        values.roleId = currentUser.idRole;
-        createTrip(values);
-        console.log(values);
+        values.rolId = currentUser.idRole;
+        createTrip(values, history);
       }}
     >
       {(formik) => (
