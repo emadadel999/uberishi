@@ -5,7 +5,7 @@ import AuthForm from "../components/authForm/index";
 import { fetchLoginRequest, fetchRegisterRequest } from "../shared/redux/actions/actionCreators";
 
 const Auth = () => {
-  const { isFetching } = useSelector((state) => state.authReducer);
+  const { isFetching, serverError } = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 
   const login = (values) => {
@@ -17,7 +17,7 @@ const Auth = () => {
     console.log(values);
     dispatch(fetchRegisterRequest(values));
   };
-  return <AuthForm onSignIn={login} onSignUp={register} loading={isFetching} />;
+  return <AuthForm onSignIn={login} onSignUp={register} loading={isFetching} serverError={serverError} />;
 };
 
 export default Auth;

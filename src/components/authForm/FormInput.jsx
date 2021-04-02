@@ -20,7 +20,7 @@ FormInput.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  type: PropTypes.oneOf(["text", "email", "password", "number"]),
+  type: PropTypes.oneOf(["text", "email", "password", "number", "date"]),
   required: PropTypes.bool,
   pattern: PropTypes.string,
   placeholder: PropTypes.string,

@@ -18,7 +18,7 @@ export const fetchLoginRequest = (authData) => {
       idRole: authData.role
     })
       .then((res) => {
-        // dispatch(recieveUserData(res.data.currentUser));
+        dispatch(recieveUserData(res.data.user));
         const response = res.data.responseCode;
         if(response != 200) throw new Error(`error ${response}`);
         dispatch(recieveAuthData(true));
@@ -35,12 +35,12 @@ export const fetchRegisterRequest = (authData) => {
     dispatch(requestAuthData());
     return Axios.post(`${BACKEND_SERVER}/api/registerUser`, {
       email: authData.email,
-      idRole: 1,
+      idRole: authData.role,
       name: authData.name,
       password: authData.password,
     })
       .then((res) => {
-        // dispatch(recieveUserData(res.data.currentUser));
+        dispatch(recieveUserData(res.data.user));
         const response = res.data.responseCode;
         if(response != 200) throw new Error(`error ${response}`);
         dispatch(recieveAuthData(true));
