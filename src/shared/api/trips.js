@@ -3,7 +3,7 @@ import { BACKEND_SERVER } from "../globals/ServerAddress";
 
 export const createTrip = (trip) => {
   axios
-    .post(`${BACKEND_SERVER}/api/createTrip`, trip)
+    .post(`${BACKEND_SERVER}/api/reservation`, trip)
     .then((res) => {
         console.log(res);
     })
