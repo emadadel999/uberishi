@@ -1,12 +1,23 @@
 import React from "react";
-import styled from "styled-components";
+import passengerTrips from "../components/passengerTrips";
+import {getListTrips} from "../shared/redux/actions/actionReservation";
+import 'font-awesome/css/font-awesome.min.css';
+import { connect } from "react-redux";
 
-import trip from "../shared/images/trip.jpeg";
 
-const ReservedTrips = () => {
-  const myTrips = [
+ class ReservedTrips extends React.Component {
+ 
+
+  componentWillMount () {
+  this.props.dispatch(getListTrips());
+}
+
+render() {
+  const { trips } = this.props;
+  console.log(this.props);
+    const myTrips = [
     {
-      name: "Going to walmart",
+      name: "Going to walmart  1",
       cost: "1$",
       description: "Some text about the trip..",
     },
@@ -15,54 +26,40 @@ const ReservedTrips = () => {
       cost: "2$",
       description: "Some text about the trip..",
     },
+    {
+      name: "Going to HyVee",
+      cost: "2$",
+      description: "Some text about the trip..",
+    },
   ];
-
+  
   return (
     <div className="container" style={{ paddingTop: "50px" }}>
-      <div className="row" style={{ justifyContent: "space-evenly" }}>
-        {myTrips.map((t, index) => {
-          return (
-            <div className="card mb-3 col-5" key={index}>
-              <div className="row g-0">
-                <ImageContainer className="col-md-5">
-                  <Image src={trip} alt="Trip" />
-                </ImageContainer>
-                <div className="col-md-7">
-                  <div className="card-body">
-                    <h5 className="card-title">{t.name}</h5>
-                    <p className="card-text">{t.description}</p>
-                    <p className="card-text">
-                      <small className="text-muted">{t.cost}</small>
-                    </p>
-                    <button
-                      className="btn btn-primary"
-                      style={{ marginRight: "10px" }}
-                    >
-                      Edit
-                    </button>
-                    <button className="btn btn-danger">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="row">
+      <div  className="col" >
+          <passengerTrips trips={trips} title='Available trips' buttonText="Book trip" create="true"/>
+      </div> 
+      <div  className="col">
+      <passengerTrips trips={trips} title='Reserved Trips' buttonText="Cancel booking" create="false"/>
+      </div>
       </div>
     </div>
   );
 };
+ }
 
-const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 0;
-`;
 
-const Image = styled.img`
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 200px;
-`;
+function mapStateToProps(state) {
+ 
+   let _trips = [];
 
-export default ReservedTrips;
+   if (state.reservationReducer && state.reservationReducer.trips) {
+     _trips = state.reservationReducer.trips
+   }
+   return {
+     trips: _trips
+   };
+}
+
+export default connect(mapStateToProps)(ReservedTrips);
+//export default ReservedTrips;

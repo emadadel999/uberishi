@@ -6,7 +6,8 @@ import { Provider } from "react-redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'font-awesome/css/font-awesome.min.css';
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import GlobalStyle from "./shared/globals/GlobalStyle";

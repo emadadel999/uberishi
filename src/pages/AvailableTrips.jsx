@@ -11,6 +11,42 @@ const AvailableTrips = () => {
       description: "Some text about the trip..",
     },
     {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    {
+      name: "Going to walmart",
+      cost: "1$",
+      description: "Some text about the trip..",
+    },
+    
+    {
       name: "Going to HyVee",
       cost: "2$",
       description: "Some text about the trip..",
