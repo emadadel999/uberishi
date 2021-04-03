@@ -29,7 +29,6 @@ class AvailableTrips extends React.Component {
   }
 
   handleReserve(t){
-    console.log("handleReserve");
     if (this.props.currentUser) {   
       const userId = this.props.currentUser.id;
       const roleId = this.props.currentUser.idRole;

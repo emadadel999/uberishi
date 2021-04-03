@@ -29,7 +29,6 @@ export const getTrips = (id, roleId) => {
     };
 
 export const reserveTrips = (id,roleId,tripId) => {
-  console.log(id,roleId,tripId);
   return axios.post(`${BACKEND_SERVER}/api/reservations`,
     {
       passengerId:id,
@@ -46,7 +45,6 @@ export const reserveTrips = (id,roleId,tripId) => {
 };
 
 export const cancelReservation = (id,roleId,tripId) => {
-  console.log("handleCancel");
     return axios.delete(`${BACKEND_SERVER}/api/reservations`,
     {data:{
       passengerId:id,
@@ -63,4 +61,28 @@ export const getDriverTrips = (driverId, roleId) => {
     return res.data;
   });
 }
+
+export const getPastReservations = (id, roleId) => {
+   return axios.get(`${BACKEND_SERVER}/api/reservations/past/${id}/${roleId}`)
+      .then((res) => {
+        return res.data;
+      })
+    };
+
+    export const rateReservation = (id, roleId,tripId,rate) => {
+          return axios.put(`${BACKEND_SERVER}/api/reservations/rate`,
+              {
+                passengerId:id,
+                rolId:roleId,
+                tripId:tripId,
+                rate:rate,
+              }
+              )
+              .then(res => {
+                console.log("Success")
+            })
+            .catch(error => {
+              console.log(error)
+            })
+       };
 
