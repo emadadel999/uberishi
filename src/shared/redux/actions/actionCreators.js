@@ -11,8 +11,8 @@ import {
 export const fetchLoginRequest = (authData) => {
   return (dispatch) => {
     dispatch(requestAuthData());
-
-    return Axios.post(`${BACKEND_SERVER}/api/loginUser`, {
+console.log(authData);
+    return Axios.post(`${BACKEND_SERVER}/api/users/login`, {
       email: authData.email,
       password: authData.password,
       idRole: authData.role

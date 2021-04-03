@@ -13,26 +13,41 @@ export const createTrip = (trip) => {
 };
 
 
-export const getTrips = () => {
-   
-    return axios.get(`${BACKEND_SERVER}/api/listTrips/1/2`)
+export const getTrips = (id, roleId) => {
+  console.log("getTrips");
+   return axios.get(`${BACKEND_SERVER}/api/trips/available/${id}/${roleId}`)
       .then((res) => {
-       
-        console.log(res);
-        return res;
+        return res.data;
       })
-    //   .catch((err) => {
-    //     const error = err.response ? err.response.data.message : err.message;
-    //     dispatch(fetchAuthFailed(error));
-    //   });
-   
- };
+    };
 
-export const reserveTrips = () => {
-    
+export const reserveTrips = (id,roleId,tripId) => {
+  console.log(id,roleId,tripId);
+  return axios.post(`${BACKEND_SERVER}/api/reservations`,
+    {
+      passengerId:id,
+      rolId:roleId,
+      tripId:tripId
+    }
+    )
+    .then(res => {
+      console.log("Success")
+  })
+  .catch(error => {
+    console.log(error)
+  })
 };
 
-export const cancelReservation = () => {
-    
+export const cancelReservation = (id,roleId,tripId) => {
+  console.log("handleCancel");
+    return axios.delete(`${BACKEND_SERVER}/api/reservations`,
+    {data:{
+      passengerId:id,
+      rolId:roleId,
+      tripId:tripId
+    }})
+  .then((res) => {
+    return res.data;
+  })
 };
 
