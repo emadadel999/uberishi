@@ -11,16 +11,15 @@ import {
 export const fetchLoginRequest = (authData) => {
   return (dispatch) => {
     dispatch(requestAuthData());
-console.log(authData);
     return Axios.post(`${BACKEND_SERVER}/api/users/login`, {
       email: authData.email,
       password: authData.password,
-      idRole: authData.role
+      idRole: authData.role,
     })
       .then((res) => {
         dispatch(recieveUserData(res.data.user));
         const response = res.data.responseCode;
-        if(response != 200) throw new Error(`error ${response}`);
+        if (response != 200) throw new Error(`error ${response}`);
         dispatch(recieveAuthData(true));
       })
       .catch((err) => {
@@ -33,7 +32,7 @@ console.log(authData);
 export const fetchRegisterRequest = (authData) => {
   return (dispatch) => {
     dispatch(requestAuthData());
-    return Axios.post(`${BACKEND_SERVER}/api/registerUser`, {
+    return Axios.post(`${BACKEND_SERVER}/api/users/register`, {
       email: authData.email,
       idRole: authData.role,
       name: authData.name,
@@ -42,7 +41,7 @@ export const fetchRegisterRequest = (authData) => {
       .then((res) => {
         dispatch(recieveUserData(res.data.user));
         const response = res.data.responseCode;
-        if(response != 200) throw new Error(`error ${response}`);
+        if (response != 200) throw new Error(`error ${response}`);
         dispatch(recieveAuthData(true));
       })
       .catch((err) => {

@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../components/authForm/Button";
 import FormInput from "../components/authForm/FormInput";
@@ -9,19 +9,22 @@ import FormTextArea from "../components/authForm/FormTextArea";
 import Typography from "../components/authForm/Typography";
 import { useSelector } from "react-redux";
 
-import {createTrip} from '../shared/api/trips';
+import { createTrip, getLocations } from "../shared/api/trips";
+import { useHistory } from "react-router";
 
 const CreateTrips = () => {
   const { currentUser } = useSelector((state) => state.userReducer);
+  // const [availabeLocations, setLocations] = useState([]);
+  let history = useHistory();
+  // useEffect(() => {
+  //   getLocations().then((res) => {
+  //     setLocations(() => res);
+  //   });
+  // }, availabeLocations);
   const availabeLocations = [
-    {
-      value: 1,
-      text: "Walmart",
-    },
-    {
-      value: 2,
-      text: "Everybody's",
-    },
+    { id: 1, name: "Walmart" },
+    { id: 2, name: "Square" },
+    { id: 3, name: "Hyvee" },
   ];
   return (
     <Formik
@@ -29,8 +32,8 @@ const CreateTrips = () => {
         locationFromId: 0,
         locationToId: 0,
         dateTime: "",
-        costPerSeat: 0,
-        numberOfSeats: 0,
+        costPerSeat: "",
+        numberOfSeats: "",
         note: "",
       }}
       validationSchema={yup.object({
@@ -46,11 +49,12 @@ const CreateTrips = () => {
       onSubmit={(values) => {
         values.locationFromId = +values.locationFromId;
         values.locationToId = +values.locationToId;
+        values.costPerSeat = +values.costPerSeat;
         values.numberOfSeats = +values.numberOfSeats;
+        values.dateTime = new Date(values.dateTime);
         values.driverId = currentUser.id;
-        values.roleId = currentUser.idRole;
-        createTrip(values);
-        console.log(values);
+        values.rolId = currentUser.idRole;
+        createTrip(values, history);
       }}
     >
       {(formik) => (
@@ -110,6 +114,5 @@ const Container = styled.div`
   justify-content: center;
   padding: 20px;
 `;
-
 
 export default CreateTrips;

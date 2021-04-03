@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import React from "react";
+import { Nav, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Signout from "../Signout";
 
@@ -26,8 +26,8 @@ const MyNav = () => {
             </Link>
           </Nav>
           <Nav>
-            <Link className="nav-link" to='/profile'>
-              Profile
+            <Link className="nav-link" to='/'>
+              {currentUser.email}
             </Link>
             <Signout>Log out</Signout>
           </Nav>

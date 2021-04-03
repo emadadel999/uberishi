@@ -6,10 +6,10 @@ import Auth from "./pages/Auth";
 import PrivateRoute from "./shared/globals/PrivateRoute";
 import AvailableTrips from "./pages/AvailableTrips";
 import ReservedTrips from "./pages/ReservedTrips";
-import MyProfile from "./pages/MyProfile";
 import MyNav from "./components/styling/MyNav";
 import Trips from "./pages/Trips";
 import CreateTrips from "./pages/CreateTrips";
+import ModifyTrip from "./pages/ModifyTrip";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.authReducer);
@@ -38,11 +38,11 @@ function App() {
         </PrivateRoute>
         <PrivateRoute
           exact
-          path="/profile"
+          path="/editTrip"
           condition={isLoggedIn}
           redirectRoute="/auth"
         >
-          <MyProfile />
+          <ModifyTrip />
         </PrivateRoute>
         <PrivateRoute
           exact
