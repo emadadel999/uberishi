@@ -10,12 +10,12 @@ import FormSelect from "./FormSelect";
 function SignInForm({ className, onSignIn, serverError, loading }) {
   const ddlValues = [
     {
-      value: 1,
-      text: "Driver",
+      id: 1,
+      name: "Driver",
     },
     {
-      value: 2,
-      text: "Passenger",
+      id: 2,
+      name: "Passenger",
     },
   ];
   return (
