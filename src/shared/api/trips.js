@@ -64,17 +64,3 @@ export const getDriverTrips = (driverId, roleId) => {
   });
 }
 
-export const getTrips = () => {
-  return axios.get(`${BACKEND_SERVER}/api/listTrips/1/2`).then((res) => {
-    console.log(res);
-    return res;
-  });
-  //   .catch((err) => {
-  //     const error = err.response ? err.response.data.message : err.message;
-  //     dispatch(fetchAuthFailed(error));
-  //   });
-};
-
-export const reserveTrips = () => {};
-
-export const cancelReservation = () => {};
