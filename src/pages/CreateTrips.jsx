@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Button from "../components/authForm/Button";
 import FormInput from "../components/authForm/FormInput";
@@ -9,18 +9,12 @@ import FormTextArea from "../components/authForm/FormTextArea";
 import Typography from "../components/authForm/Typography";
 import { useSelector } from "react-redux";
 
-import { createTrip, getLocations } from "../shared/api/trips";
+import { createTrip } from "../shared/api/trips";
 import { useHistory } from "react-router";
 
 const CreateTrips = () => {
   const { currentUser } = useSelector((state) => state.userReducer);
-  // const [availabeLocations, setLocations] = useState([]);
   let history = useHistory();
-  // useEffect(() => {
-  //   getLocations().then((res) => {
-  //     setLocations(() => res);
-  //   });
-  // }, availabeLocations);
   const availabeLocations = [
     { id: 1, name: "Walmart" },
     { id: 2, name: "Square" },
