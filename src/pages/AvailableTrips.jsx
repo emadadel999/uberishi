@@ -1,87 +1,88 @@
 import React from "react";
 import styled from "styled-components";
-
 import trip from "../shared/images/trip.jpeg";
+import {getTrips,cancelReservation,reserveTrips} from '../shared/api/trips';
+import { connect } from "react-redux";
 
-const AvailableTrips = () => {
-  const myTrips = [
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    
-    {
-      name: "Going to HyVee",
-      cost: "2$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to walmart",
-      cost: "1$",
-      description: "Some text about the trip..",
-    },
-    {
-      name: "Going to HyVee",
-      cost: "2$",
-      description: "Some text about the trip..",
-    },
-  ];
 
-  return (
+class AvailableTrips extends React.Component {
+  constructor(props) {super(props);
+    this.state = {
+      trips: [],
+      user: ''
+    };
+  }
+  componentDidMount() {
+    if (this.props.currentUser) {
+      const userId = this.props.currentUser.id;
+      const roleId = this.props.currentUser.idRole;
+      getTrips(userId, roleId).then(result => {
+        this.setState({
+        trips: result})
+      });
+    }
+  }
+  formatDate(dateLog) {
+    if (dateLog)
+      return dateLog.substring(0, 19).replace('T', ' ');
+    else return null;
+  }
+
+  handleReserve(t){
+    if (this.props.currentUser) {   
+      const userId = this.props.currentUser.id;
+      const roleId = this.props.currentUser.idRole;
+      reserveTrips(userId,roleId,t.id).then(() => {
+        getTrips(userId, roleId).then(result => {
+          this.setState({
+          trips: result})
+        });
+      });
+      
+    }
+  };
+
+  handleCancel(t){
+    console.log("handleCancel");
+    if (this.props.currentUser) {   
+      const userId = this.props.currentUser.id;
+      const roleId = this.props.currentUser.idRole;
+      cancelReservation(userId,roleId,t.id).then(() => {
+        getTrips(userId, roleId).then(result => {
+          this.setState({
+          trips: result})
+        });
+      });
+      
+    }
+  };
+render() {
+  if(!this.state.trips.length)
+  return null;
+  const { currentUser } = this.props   
+   return (
     <>
+  {}
       <div className="container" style={{ paddingTop: "50px" }}>
         <div className="row" style={{ justifyContent: "space-evenly" }}>
-          {myTrips.map((t, index) => {
+          {
+             this.state.trips.map((t, index) => {
             return (
               <div className="card mb-3 col-5" key={index}>
                 <div className="row g-0">
-                  <ImageContainer className="col-md-5">
+                   <ImageContainer className="col-md-5">
                     <Image src={trip} alt="Trip" />
-                  </ImageContainer>
+                  </ImageContainer> 
                   <div className="col-md-7">
                     <div className="card-body">
-                      <h5 className="card-title">{t.name}</h5>
-                      <p className="card-text">{t.description}</p>
+                      <h4 className="card-title">From {t.locationFromName} to {t.locationToName} ${t.costPerSeat}</h4>
+                      <p className="card-text"> {this.formatDate(t.dateTime)} </p>
+                      <p className="card-text"> {t.note}</p>
                       <p className="card-text">
-                        <small className="text-muted">{t.cost}</small>
+                        <small className="text-muted">Available seats:{t.availableSeats}</small>
                       </p>
-                      <button className="btn btn-primary">Reserve Trip</button>
+                      <button onClick={() =>this.handleReserve(t)} className="btn btn-success" hidden={t.reserved}>Reserve Trip</button>
+                      <button onClick={() =>this.handleCancel(t)} className="btn btn-danger"  hidden={!t.reserved}> Cancel Trip</button>
                     </div>
                   </div>
                 </div>
@@ -92,8 +93,11 @@ const AvailableTrips = () => {
       </div>
     </>
   );
-};
 
+
+
+};
+}
 const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -106,5 +110,11 @@ const Image = styled.img`
   padding: 5px;
   width: 200px;
 `;
-
-export default AvailableTrips;
+function mapStateToProps(state) {
+  const {currentUser}=state.userReducer;
+ return {
+  currentUser
+};
+}
+export default connect(mapStateToProps)(AvailableTrips);
+//export default AvailableTrips;

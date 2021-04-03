@@ -3,7 +3,7 @@ import { Card, Media} from 'react-bootstrap';
 //port {createReservation,deleteReservation} from "../shared/redux/actions/actionReservation";
 import { connect } from "react-redux";
 
-class passengerTrips extends React.Component {
+class PassengerTrips extends React.Component {
     constructor(props) {
         super(props);
         this.state = { loaded: "0",
@@ -40,7 +40,7 @@ handleClick(t, create){
              <h3>
              {this.props.title}
             </h3>
-            {this.props.trips.map((t, index) => {
+            {[this.props.trips].map((t, index) => {
                 return (
                     <Card key={index}>
                         <Card.Body>   
@@ -53,7 +53,7 @@ handleClick(t, create){
                                 }} ></i>
                             </div>
                             <div className="media-body">
-                                <h4>From {t.locationFrom.name} to {t.locationTo.name} </h4>
+                                <h4>From {t[index].locationFromName} to {t.locationToName} </h4>
                                 <h6>{this.formatDate(t.dateTime)} </h6>
                                 <span>{t.note}</span>
                             </div>
@@ -83,4 +83,4 @@ function mapStateToProps(state) {
      // trips: _trips
     };
  }
-export default connect(mapStateToProps)(passengerTrips);
+export default connect(mapStateToProps)(PassengerTrips);
