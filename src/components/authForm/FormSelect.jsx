@@ -12,22 +12,26 @@ const FormSelect = ({
 }) => {
   const [field, meta] = useField(props);
   return (
-    <StyledSelect
-      {...field}
-      {...props}
-      isError={meta.error}
-      isTouched={meta.touched}
-    >
-      <option defaultValue>
-        {defaultChoiceText}
-      </option>
-      {values.map((obj, index) => {
-        return <option key={index} value={obj.value}>{obj.text}</option>;
-      })}
+    <>
+      <StyledSelect
+        {...field}
+        {...props}
+        isError={meta.error}
+        isTouched={meta.touched}
+      >
+        <option defaultValue>{defaultChoiceText}</option>
+        {values ? values.map((obj, index) => {
+          return (
+            <option key={index} value={obj.id}>
+              {obj.name}
+            </option>
+          );
+        }): null}
+      </StyledSelect>
       {meta.touched && meta.error ? (
         <FormError className="form-error">{meta.error}</FormError>
       ) : null}
-    </StyledSelect>
+    </>
   );
 };
 
