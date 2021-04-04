@@ -47,38 +47,40 @@ export const getLocations = () => {
 
 export const getTrips = (id, roleId) => {
   console.log("getTrips");
-   return axios.get(`${BACKEND_SERVER}/api/trips/available/${id}/${roleId}`)
-      .then((res) => {
-        return res.data;
-      })
-    };
-
-export const reserveTrips = (id,roleId,tripId) => {
-  return axios.post(`${BACKEND_SERVER}/api/reservations`,
-    {
-      passengerId:id,
-      rolId:roleId,
-      tripId:tripId
-    }
-    )
-    .then(res => {
-      console.log("Success")
-  })
-  .catch(error => {
-    console.log(error)
-  })
+  return axios
+    .get(`${BACKEND_SERVER}/api/trips/available/${id}/${roleId}`)
+    .then((res) => {
+      return res.data;
+    });
 };
 
-export const cancelReservation = (id,roleId,tripId) => {
-    return axios.delete(`${BACKEND_SERVER}/api/reservations`,
-    {data:{
-      passengerId:id,
-      rolId:roleId,
-      tripId:tripId
-    }})
-  .then((res) => {
-    return res.data;
-  })
+export const reserveTrips = (id, roleId, tripId) => {
+  return axios
+    .post(`${BACKEND_SERVER}/api/reservations`, {
+      passengerId: id,
+      rolId: roleId,
+      tripId: tripId,
+    })
+    .then((res) => {
+      console.log("Success");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const cancelReservation = (id, roleId, tripId) => {
+  return axios
+    .delete(`${BACKEND_SERVER}/api/reservations`, {
+      data: {
+        passengerId: id,
+        rolId: roleId,
+        tripId: tripId,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
 export const getDriverTrips = (driverId, roleId) => {
   return axios
@@ -90,26 +92,25 @@ export const getDriverTrips = (driverId, roleId) => {
 };
 
 export const getPastReservations = (id, roleId) => {
-   return axios.get(`${BACKEND_SERVER}/api/reservations/past/${id}/${roleId}`)
-      .then((res) => {
-        return res.data;
-      })
-    };
+  return axios
+    .get(`${BACKEND_SERVER}/api/reservations/past/${id}/${roleId}`)
+    .then((res) => {
+      return res.data;
+    });
+};
 
-    export const rateReservation = (id, roleId,tripId,rate) => {
-          return axios.put(`${BACKEND_SERVER}/api/reservations/rate`,
-              {
-                passengerId:id,
-                rolId:roleId,
-                tripId:tripId,
-                rate:rate,
-              }
-              )
-              .then(res => {
-                console.log("Success")
-            })
-            .catch(error => {
-              console.log(error)
-            })
-       };
-
+export const rateReservation = (id, roleId, tripId, rate) => {
+  return axios
+    .put(`${BACKEND_SERVER}/api/reservations/rate`, {
+      passengerId: id,
+      rolId: roleId,
+      tripId: tripId,
+      rate: rate,
+    })
+    .then((res) => {
+      console.log("Success");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

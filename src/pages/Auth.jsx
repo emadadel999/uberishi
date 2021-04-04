@@ -9,12 +9,10 @@ const Auth = () => {
   const dispatch = useDispatch();
 
   const login = (values) => {
-    console.log(values);
     dispatch(fetchLoginRequest(values));
   };
 
   const register = (values) => {
-    console.log(values);
     dispatch(fetchRegisterRequest(values));
   };
   return <AuthForm onSignIn={login} onSignUp={register} loading={isFetching} serverError={serverError} />;
