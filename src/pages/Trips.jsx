@@ -58,7 +58,7 @@ const Trips = () => {
                           </p>
                           <p className="card-text">
                             <small className="text-muted">
-                              {t.numberOfSeats} seats allowed
+                              {t.numberOfSeats}  seats allowed
                             </small>
                           </p>
                           <p className="card-text">
